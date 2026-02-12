@@ -99,6 +99,36 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+async def update_leaderboard(player_name: str, wins: int = 0, games_played: int = 0):
+    """Update player stats in leaderboard"""
+    existing = await db.leaderboard.find_one({"player_name": player_name}, {"_id": 0})
+    
+    if existing:
+        new_wins = existing.get('wins', 0) + wins
+        new_games = existing.get('games_played', 0) + games_played
+        win_rate = (new_wins / new_games * 100) if new_games > 0 else 0.0
+        
+        await db.leaderboard.update_one(
+            {"player_name": player_name},
+            {"$set": {
+                "wins": new_wins,
+                "games_played": new_games,
+                "win_rate": round(win_rate, 2),
+                "last_played": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+    else:
+        win_rate = (wins / games_played * 100) if games_played > 0 else 0.0
+        entry = LeaderboardEntry(
+            player_name=player_name,
+            wins=wins,
+            games_played=games_played,
+            win_rate=round(win_rate, 2)
+        )
+        entry_dict = entry.model_dump()
+        entry_dict['last_played'] = entry_dict['last_played'].isoformat()
+        await db.leaderboard.insert_one(entry_dict)
+
 def generate_bingo_card() -> BingoCard:
     numbers = []
     for col in range(5):
