@@ -54,6 +54,50 @@ class KellysEyeBingoAPITester:
             self.errors.append({"test": name, "error": error_msg})
             return False, {}
 
+    def test_single_player_flow_with_patterns(self):
+        """Test complete single player game flow with new patterns"""
+        print("\n🎮 Testing Single Player Game Flow with Patterns...")
+        
+        # Test each pattern type
+        patterns = ['any', 'line', 'diagonal', 'four_corners', 'x', 'full_house']
+        
+        for pattern in patterns:
+            print(f"\n   Testing pattern: {pattern}")
+            
+            # Create single player game with pattern
+            success, response = self.run_test(
+                f"Create Single Player Game ({pattern})",
+                "POST",
+                "game/create",
+                200,
+                params={
+                    "mode": "single",
+                    "player_name": f"TestPlayer_{pattern}",
+                    "num_cards": 1,
+                    "pattern": pattern
+                }
+            )
+            
+            if not success:
+                continue
+                
+            game_id = response.get('game_id')
+            if game_id:
+                # Verify pattern is stored correctly
+                success, game_data = self.run_test(
+                    f"Get Game Pattern ({pattern})",
+                    "GET",
+                    f"game/{game_id}",
+                    200
+                )
+                
+                if success and game_data.get('pattern') == pattern:
+                    print(f"✅ Pattern {pattern} correctly stored")
+                else:
+                    self.errors.append({"test": f"Game Pattern ({pattern})", "error": f"Pattern not stored correctly: {game_data.get('pattern')}"})
+        
+        return True
+
     def test_single_player_flow(self):
         """Test complete single player game flow"""
         print("\n🎮 Testing Single Player Game Flow...")
