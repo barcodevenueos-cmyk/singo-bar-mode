@@ -53,12 +53,15 @@ const SinglePlayerPage = () => {
       return;
     }
     
+    if (soundEnabled) playSound('click');
+    
     try {
       const response = await axios.post(`${API}/game/create`, null, {
         params: {
           mode: 'single',
           player_name: playerName,
-          num_cards: numCards
+          num_cards: numCards,
+          pattern: selectedPattern
         }
       });
       
@@ -75,6 +78,7 @@ const SinglePlayerPage = () => {
         if (message.type === 'number_called') {
           setCalledNumbers(message.called_numbers);
           setCurrentNumber(message.number);
+          if (soundEnabled) playSound('numberCall');
         } else if (message.type === 'game_won') {
           handleWin();
         }
