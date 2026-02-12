@@ -214,6 +214,7 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
     if not game_doc:
         raise HTTPException(status_code=404, detail="Game not found")
     
+    pattern = game_doc.get('pattern', 'any')
     players = game_doc.get('players', [])
     for player in players:
         if player['player_id'] == player_id:
@@ -221,13 +222,15 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
                 if card['card_id'] == card_id:
                     card['daubed'][row][col] = True
                     
-                    is_winner = check_win(BingoCard(**card))
+                    is_winner = check_win(BingoCard(**card), pattern)
                     if is_winner:
                         player['is_winner'] = True
                         await db.games.update_one(
                             {"game_id": game_id},
                             {"$set": {"players": players, "winner_id": player_id, "is_active": False}}
                         )
+                        
+                        await update_leaderboard(player['player_name'], wins=1)
                         
                         await manager.broadcast_to_game({
                             "type": "game_won",
