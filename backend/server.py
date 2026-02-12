@@ -146,7 +146,7 @@ def check_win(card: BingoCard, pattern: str = "any") -> bool:
     return False
 
 @api_router.post("/game/create")
-async def create_game(mode: str, player_name: str, num_cards: int = 1):
+async def create_game(mode: str, player_name: str, num_cards: int = 1, pattern: str = "any"):
     player_id = str(uuid.uuid4())
     cards = [generate_bingo_card() for _ in range(num_cards)]
     
@@ -155,12 +155,15 @@ async def create_game(mode: str, player_name: str, num_cards: int = 1):
     game = Game(
         mode=mode,
         players=[player],
-        remaining_numbers=list(range(1, 76))
+        remaining_numbers=list(range(1, 76)),
+        pattern=pattern
     )
     
     game_dict = game.model_dump()
     game_dict['created_at'] = game_dict['created_at'].isoformat()
     await db.games.insert_one(game_dict)
+    
+    await update_leaderboard(player_name, games_played=1)
     
     return {"game_id": game.game_id, "player_id": player_id, "cards": cards}
 
