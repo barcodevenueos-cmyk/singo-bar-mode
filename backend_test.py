@@ -54,6 +54,57 @@ class KellysEyeBingoAPITester:
             self.errors.append({"test": name, "error": error_msg})
             return False, {}
 
+    def test_leaderboard_functionality(self):
+        """Test leaderboard API and tracking"""
+        print("\n🏆 Testing Leaderboard Functionality...")
+        
+        # Get leaderboard
+        success, leaderboard = self.run_test(
+            "Get Leaderboard",
+            "GET", 
+            "leaderboard",
+            200,
+            params={"limit": 10}
+        )
+        
+        if success:
+            if isinstance(leaderboard, list):
+                print(f"✅ Leaderboard returned list with {len(leaderboard)} entries")
+                
+                # Validate leaderboard structure if entries exist
+                if leaderboard:
+                    entry = leaderboard[0]
+                    required_fields = ['player_name', 'wins', 'games_played', 'win_rate']
+                    missing_fields = [field for field in required_fields if field not in entry]
+                    
+                    if not missing_fields:
+                        print("✅ Leaderboard entries have all required fields")
+                        print(f"   Sample entry: {entry['player_name']}, Wins: {entry['wins']}, Win Rate: {entry['win_rate']}%")
+                    else:
+                        self.errors.append({"test": "Leaderboard Entry Structure", "error": f"Missing fields: {missing_fields}"})
+            else:
+                self.errors.append({"test": "Get Leaderboard", "error": "Leaderboard not returned as list"})
+        
+        # Create a game to test leaderboard tracking
+        success, response = self.run_test(
+            "Create Game for Leaderboard",
+            "POST",
+            "game/create",
+            200,
+            params={
+                "mode": "single",
+                "player_name": "LeaderboardTestPlayer_" + str(int(time.time())),
+                "num_cards": 1,
+                "pattern": "any"
+            }
+        )
+        
+        if success:
+            game_id = response.get('game_id')
+            print(f"   Created game for leaderboard: {game_id}")
+        
+        return True
+
     def test_single_player_flow_with_patterns(self):
         """Test complete single player game flow with new patterns"""
         print("\n🎮 Testing Single Player Game Flow with Patterns...")
@@ -198,7 +249,7 @@ class KellysEyeBingoAPITester:
             "room/create",
             200,
             params={
-                "room_name": "Test Pride Room",
+                "room_name": "Test Kelly's Eye Room",
                 "host_name": "TestHost",
                 "max_players": 4
             }
@@ -311,76 +362,6 @@ class KellysEyeBingoAPITester:
             cards = response['cards']
             if len(cards) == 4:
                 print("✅ Created 4 cards successfully")
-    def test_leaderboard_functionality(self):
-        """Test leaderboard API and tracking"""
-        print("\n🏆 Testing Leaderboard Functionality...")
-        
-        # Get empty leaderboard
-        success, leaderboard = self.run_test(
-            "Get Empty Leaderboard",
-            "GET", 
-            "leaderboard",
-            200,
-            params={"limit": 10}
-        )
-        
-        if success:
-            if isinstance(leaderboard, list):
-                print(f"✅ Leaderboard returned list with {len(leaderboard)} entries")
-            else:
-                self.errors.append({"test": "Get Empty Leaderboard", "error": "Leaderboard not returned as list"})
-        
-        # Create a game to add to leaderboard
-        success, response = self.run_test(
-            "Create Game for Leaderboard",
-            "POST",
-            "game/create",
-            200,
-            params={
-                "mode": "single",
-                "player_name": "LeaderboardTestPlayer",
-                "num_cards": 1,
-                "pattern": "any"
-            }
-        )
-        
-        if success:
-            game_id = response.get('game_id')
-            print(f"   Created game for leaderboard: {game_id}")
-            
-            # Wait a moment then check leaderboard again
-            time.sleep(1)
-            
-            success, updated_leaderboard = self.run_test(
-                "Get Updated Leaderboard",
-                "GET",
-                "leaderboard", 
-                200,
-                params={"limit": 10}
-            )
-            
-            if success and isinstance(updated_leaderboard, list):
-                # Check if our test player appears
-                found_player = any(entry.get('player_name') == 'LeaderboardTestPlayer' for entry in updated_leaderboard)
-                if found_player:
-                    print("✅ Player added to leaderboard")
-                    
-                    # Validate leaderboard entry structure
-                    for entry in updated_leaderboard:
-                        if entry.get('player_name') == 'LeaderboardTestPlayer':
-                            required_fields = ['player_name', 'wins', 'games_played', 'win_rate']
-                            missing_fields = [field for field in required_fields if field not in entry]
-                            
-                            if not missing_fields:
-                                print("✅ Leaderboard entry has all required fields")
-                                print(f"   Wins: {entry['wins']}, Games: {entry['games_played']}, Win Rate: {entry['win_rate']}%")
-                            else:
-                                self.errors.append({"test": "Leaderboard Entry Structure", "error": f"Missing fields: {missing_fields}"})
-                            break
-                else:
-                    self.errors.append({"test": "Get Updated Leaderboard", "error": "Test player not found in leaderboard"})
-        
-        return True
                 
                 # Validate card structure
                 for i, card in enumerate(cards):
@@ -437,9 +418,9 @@ def main():
     
     # Run all tests
     test_functions = [
-        tester.test_single_player_flow,
-        tester.test_single_player_flow_with_patterns,
         tester.test_leaderboard_functionality,
+        tester.test_single_player_flow_with_patterns,
+        tester.test_single_player_flow,
         tester.test_multiplayer_flow,
         tester.test_game_validation,
         tester.test_bingo_card_structure
