@@ -311,6 +311,76 @@ class KellysEyeBingoAPITester:
             cards = response['cards']
             if len(cards) == 4:
                 print("✅ Created 4 cards successfully")
+    def test_leaderboard_functionality(self):
+        """Test leaderboard API and tracking"""
+        print("\n🏆 Testing Leaderboard Functionality...")
+        
+        # Get empty leaderboard
+        success, leaderboard = self.run_test(
+            "Get Empty Leaderboard",
+            "GET", 
+            "leaderboard",
+            200,
+            params={"limit": 10}
+        )
+        
+        if success:
+            if isinstance(leaderboard, list):
+                print(f"✅ Leaderboard returned list with {len(leaderboard)} entries")
+            else:
+                self.errors.append({"test": "Get Empty Leaderboard", "error": "Leaderboard not returned as list"})
+        
+        # Create a game to add to leaderboard
+        success, response = self.run_test(
+            "Create Game for Leaderboard",
+            "POST",
+            "game/create",
+            200,
+            params={
+                "mode": "single",
+                "player_name": "LeaderboardTestPlayer",
+                "num_cards": 1,
+                "pattern": "any"
+            }
+        )
+        
+        if success:
+            game_id = response.get('game_id')
+            print(f"   Created game for leaderboard: {game_id}")
+            
+            # Wait a moment then check leaderboard again
+            time.sleep(1)
+            
+            success, updated_leaderboard = self.run_test(
+                "Get Updated Leaderboard",
+                "GET",
+                "leaderboard", 
+                200,
+                params={"limit": 10}
+            )
+            
+            if success and isinstance(updated_leaderboard, list):
+                # Check if our test player appears
+                found_player = any(entry.get('player_name') == 'LeaderboardTestPlayer' for entry in updated_leaderboard)
+                if found_player:
+                    print("✅ Player added to leaderboard")
+                    
+                    # Validate leaderboard entry structure
+                    for entry in updated_leaderboard:
+                        if entry.get('player_name') == 'LeaderboardTestPlayer':
+                            required_fields = ['player_name', 'wins', 'games_played', 'win_rate']
+                            missing_fields = [field for field in required_fields if field not in entry]
+                            
+                            if not missing_fields:
+                                print("✅ Leaderboard entry has all required fields")
+                                print(f"   Wins: {entry['wins']}, Games: {entry['games_played']}, Win Rate: {entry['win_rate']}%")
+                            else:
+                                self.errors.append({"test": "Leaderboard Entry Structure", "error": f"Missing fields: {missing_fields}"})
+                            break
+                else:
+                    self.errors.append({"test": "Get Updated Leaderboard", "error": "Test player not found in leaderboard"})
+        
+        return True
                 
                 # Validate card structure
                 for i, card in enumerate(cards):
