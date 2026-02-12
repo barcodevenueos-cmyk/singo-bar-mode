@@ -7,7 +7,9 @@ import { NeoInput } from '../components/ui/NeoInput';
 import { NeoCard } from '../components/ui/NeoCard';
 import BingoCard from '../components/BingoCard';
 import CalledNumbersBoard from '../components/CalledNumbersBoard';
-import { ArrowLeft, Play, Pause, RotateCcw } from 'lucide-react';
+import PatternSelector from '../components/PatternSelector';
+import { ArrowLeft, Play, Pause, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { playSound } from '../utils/sounds';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
