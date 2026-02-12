@@ -18,6 +18,7 @@ const SinglePlayerPage = () => {
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
   const [numCards, setNumCards] = useState(1);
+  const [selectedPattern, setSelectedPattern] = useState('any');
   const [gameStarted, setGameStarted] = useState(false);
   const [gameData, setGameData] = useState(null);
   const [calledNumbers, setCalledNumbers] = useState([]);
@@ -25,6 +26,7 @@ const SinglePlayerPage = () => {
   const [autoDaub, setAutoDaub] = useState(true);
   const [autoCall, setAutoCall] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
   const [ws, setWs] = useState(null);
   
   useEffect(() => {
