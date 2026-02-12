@@ -22,7 +22,7 @@ const HomePage = () => {
             <div className="rainbow-border">
               <div className="rainbow-border-content px-8 py-4">
                 <h1 className="font-primary text-5xl md:text-7xl uppercase tracking-tighter leading-[0.9] text-black">
-                  PRIDE BINGO
+                  KELLY'S EYE
                 </h1>
               </div>
             </div>
@@ -30,6 +30,16 @@ const HomePage = () => {
           <p className="font-secondary text-lg md:text-xl font-medium max-w-2xl mx-auto text-black">
             Celebrate diversity and inclusion with our vibrant bingo game. Play solo or join friends for an unforgettable experience!
           </p>
+          <div className="mt-6">
+            <NeoButton
+              variant="ghost"
+              onClick={() => navigate('/leaderboard')}
+              testId="view-leaderboard-btn"
+            >
+              <Trophy className="w-5 h-5 inline mr-2" />
+              View Leaderboard
+            </NeoButton>
+          </div>
         </motion.div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
