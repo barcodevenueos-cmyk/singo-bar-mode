@@ -329,6 +329,7 @@ const SinglePlayerPage = () => {
                   calledNumbers={calledNumbers}
                   onDaub={(row, col) => handleDaub(idx, row, col)}
                   autoDaub={autoDaub}
+                  soundEnabled={soundEnabled}
                 />
               ))}
             </div>
