@@ -427,10 +427,10 @@ class KellysEyeBingoAPITester:
         return True
 
 def main():
-    print("🏳️‍🌈 Pride Bingo API Testing Suite 🏳️‍🌈")
+    print("🎯 Kelly's Eye Bingo API Testing Suite 🎯")
     print("=" * 50)
     
-    tester = PrideBingoAPITester()
+    tester = KellysEyeBingoAPITester()
     
     # Test basic connectivity
     print(f"\n🌐 Testing connectivity to {tester.api_url}")
@@ -438,6 +438,8 @@ def main():
     # Run all tests
     test_functions = [
         tester.test_single_player_flow,
+        tester.test_single_player_flow_with_patterns,
+        tester.test_leaderboard_functionality,
         tester.test_multiplayer_flow,
         tester.test_game_validation,
         tester.test_bingo_card_structure
