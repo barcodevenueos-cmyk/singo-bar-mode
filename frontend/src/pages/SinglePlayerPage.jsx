@@ -137,6 +137,8 @@ const SinglePlayerPage = () => {
     setGameWon(true);
     setAutoCall(false);
     
+    if (soundEnabled) playSound('win');
+    
     confetti({
       particleCount: 100,
       spread: 70,
