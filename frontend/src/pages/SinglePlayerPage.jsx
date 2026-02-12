@@ -223,6 +223,11 @@ const SinglePlayerPage = () => {
                 />
               </div>
               
+              <PatternSelector 
+                selectedPattern={selectedPattern}
+                onSelectPattern={setSelectedPattern}
+              />
+              
               <NeoButton
                 variant="primary"
                 onClick={startGame}
