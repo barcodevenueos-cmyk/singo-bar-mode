@@ -90,7 +90,7 @@ const MultiplayerPage = () => {
         </NeoButton>
         
         <h1 className="font-primary text-4xl md:text-6xl uppercase tracking-tight mb-8 text-center">
-          Multiplayer Lobby
+          KELLY'S EYE - Multiplayer
         </h1>
         
         <div className="grid md:grid-cols-2 gap-8 mb-8">
