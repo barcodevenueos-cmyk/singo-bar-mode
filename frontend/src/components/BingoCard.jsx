@@ -11,6 +11,7 @@ const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true 
     
     const number = card.numbers[row][col];
     if (number === 0 || calledNumbers.includes(number)) {
+      if (soundEnabled) playSound('daub');
       onDaub(row, col);
     }
   };
