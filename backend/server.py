@@ -45,7 +45,16 @@ class Game(BaseModel):
     remaining_numbers: List[int] = []
     is_active: bool = False
     winner_id: Optional[str] = None
+    pattern: str = "any"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class LeaderboardEntry(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    player_name: str
+    wins: int = 0
+    games_played: int = 0
+    win_rate: float = 0.0
+    last_played: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class GameRoom(BaseModel):
     model_config = ConfigDict(extra="ignore")
