@@ -331,6 +331,15 @@ async def get_room(room_id: str):
         raise HTTPException(status_code=404, detail="Room not found")
     return room_doc
 
+@api_router.get("/leaderboard")
+async def get_leaderboard(limit: int = 10):
+    """Get top players by wins"""
+    leaderboard = await db.leaderboard.find(
+        {},
+        {"_id": 0}
+    ).sort("wins", -1).limit(limit).to_list(limit)
+    return leaderboard
+
 @api_router.websocket("/ws/{game_id}/{player_id}")
 async def websocket_endpoint(websocket: WebSocket, game_id: str, player_id: str):
     await manager.connect(player_id, websocket)
