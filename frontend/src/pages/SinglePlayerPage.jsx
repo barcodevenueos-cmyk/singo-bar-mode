@@ -99,6 +99,7 @@ const SinglePlayerPage = () => {
       if (response.data.number) {
         setCurrentNumber(response.data.number);
         setCalledNumbers(response.data.called_numbers);
+        if (soundEnabled) playSound('numberCall');
       } else if (response.data.game_over) {
         setAutoCall(false);
       }
