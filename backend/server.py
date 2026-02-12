@@ -104,21 +104,35 @@ def generate_bingo_card() -> BingoCard:
     
     return BingoCard(numbers=transposed, daubed=daubed)
 
-def check_win(card: BingoCard) -> bool:
+def check_win(card: BingoCard, pattern: str = "any") -> bool:
     daubed = card.daubed
     
-    for row in daubed:
-        if all(row):
+    if pattern == "any" or pattern == "line":
+        for row in daubed:
+            if all(row):
+                return True
+        
+        for col in range(5):
+            if all(daubed[row][col] for row in range(5)):
+                return True
+    
+    if pattern == "any" or pattern == "diagonal":
+        if all(daubed[i][i] for i in range(5)):
+            return True
+        if all(daubed[i][4-i] for i in range(5)):
             return True
     
-    for col in range(5):
-        if all(daubed[row][col] for row in range(5)):
+    if pattern == "any" or pattern == "four_corners":
+        if daubed[0][0] and daubed[0][4] and daubed[4][0] and daubed[4][4]:
             return True
     
-    if all(daubed[i][i] for i in range(5)):
-        return True
-    if all(daubed[i][4-i] for i in range(5)):
-        return True
+    if pattern == "any" or pattern == "x":
+        if all(daubed[i][i] for i in range(5)) and all(daubed[i][4-i] for i in range(5)):
+            return True
+    
+    if pattern == "any" or pattern == "full_house":
+        if all(all(row) for row in daubed):
+            return True
     
     return False
 
