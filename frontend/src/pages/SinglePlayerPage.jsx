@@ -174,6 +174,7 @@ const SinglePlayerPage = () => {
     setCurrentNumber(null);
     setAutoCall(false);
     setGameWon(false);
+    setSelectedPattern('any');
   };
   
   if (!gameStarted) {
