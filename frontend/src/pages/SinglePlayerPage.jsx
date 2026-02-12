@@ -298,6 +298,15 @@ const SinglePlayerPage = () => {
             Call Next Number
           </NeoButton>
           
+          <NeoButton
+            variant="ghost"
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            testId="sound-toggle-btn"
+          >
+            {soundEnabled ? <Volume2 className="w-5 h-5 inline mr-2" /> : <VolumeX className="w-5 h-5 inline mr-2" />}
+            Sound: {soundEnabled ? 'ON' : 'OFF'}
+          </NeoButton>
+          
           <label className="flex items-center gap-2 font-secondary font-medium">
             <input
               type="checkbox"
