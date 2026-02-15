@@ -5,6 +5,7 @@ import SinglePlayerPage from "./pages/SinglePlayerPage";
 import MultiplayerPage from "./pages/MultiplayerPage";
 import GameRoomPage from "./pages/GameRoomPage";
 import LeaderboardPage from "./pages/LeaderboardPage";
+import BarModePage from "./pages/BarModePage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/multiplayer" element={<MultiplayerPage />} />
           <Route path="/game-room/:roomId" element={<GameRoomPage />} />
           <Route path="/leaderboard" element={<LeaderboardPage />} />
+          <Route path="/bar-mode" element={<BarModePage />} />
         </Routes>
       </BrowserRouter>
     </div>
