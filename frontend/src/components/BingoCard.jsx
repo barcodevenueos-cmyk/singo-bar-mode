@@ -59,9 +59,12 @@ const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true,
                 data-testid={`cell-${rowIdx}-${colIdx}`}
                 onClick={() => handleCellClick(rowIdx, colIdx)}
                 className={`
-                  aspect-square flex items-center justify-center border-2 border-black
-                  text-xl md:text-2xl font-mono font-bold cursor-pointer transition-colors relative select-none
-                  ${isDaubed ? 'bg-pride-pink text-white' : isCalled ? 'bg-pride-yellow text-black' : 'bg-white text-black hover:bg-gray-100'}
+                  aspect-square flex items-center justify-center border-2
+                  text-xl md:text-2xl font-mono font-bold cursor-pointer transition-all relative select-none
+                  ${cyberpunk 
+                    ? `border-neon-purple ${isDaubed ? 'bg-gradient-to-br from-neon-pink to-neon-purple text-white shadow-neon-pink animate-pulse' : isCalled ? 'bg-neon-cyan/20 text-neon-cyan border-neon-cyan shadow-neon-cyan' : 'bg-dark-surface text-white hover:bg-dark-card hover:shadow-neon-cyan'} rounded`
+                    : `border-black ${isDaubed ? 'bg-pride-pink text-white' : isCalled ? 'bg-pride-yellow text-black' : 'bg-white text-black hover:bg-gray-100'}`
+                  }
                 `}
                 animate={isDaubed ? { scale: [1, 1.1, 1] } : {}}
                 transition={{ duration: 0.3 }}
