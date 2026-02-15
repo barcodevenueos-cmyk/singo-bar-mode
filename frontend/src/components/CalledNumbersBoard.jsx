@@ -35,7 +35,11 @@ const CalledNumbersBoard = ({ calledNumbers, currentNumber, cyberpunk = false })
       <div className="grid grid-cols-5 gap-2">
         {columns.map((letter, colIdx) => (
           <div key={colIdx} className="space-y-1">
-            <div className="text-center font-primary text-xl bg-pride-yellow border-2 border-black py-1">
+            <div className={`text-center font-primary text-xl py-1 border-2 ${
+              cyberpunk 
+                ? 'bg-gradient-to-r from-neon-purple to-neon-cyan border-neon-cyan text-white rounded' 
+                : 'bg-pride-yellow border-black'
+            }`}>
               {letter}
             </div>
             <div className="space-y-1">
@@ -49,9 +53,12 @@ const CalledNumbersBoard = ({ calledNumbers, currentNumber, cyberpunk = false })
                     key={num}
                     data-testid={`board-num-${num}`}
                     className={`
-                      text-center text-xs md:text-sm font-mono font-bold py-1 border border-black
-                      ${isCalled ? 'bg-pride-pink text-white' : 'bg-white text-gray-300'}
-                      ${isLatest ? 'ring-2 ring-pride-purple' : ''}
+                      text-center text-xs md:text-sm font-mono font-bold py-1 border
+                      ${cyberpunk
+                        ? `border-neon-purple rounded ${isCalled ? 'bg-gradient-to-br from-neon-pink to-neon-purple text-white shadow-neon-pink' : 'bg-dark-surface text-gray-600'}`
+                        : `border-black ${isCalled ? 'bg-pride-pink text-white' : 'bg-white text-gray-300'}`
+                      }
+                      ${isLatest ? (cyberpunk ? 'ring-2 ring-neon-cyan' : 'ring-2 ring-pride-purple') : ''}
                     `}
                     animate={isLatest ? { scale: [1, 1.2, 1] } : {}}
                   >
@@ -64,7 +71,7 @@ const CalledNumbersBoard = ({ calledNumbers, currentNumber, cyberpunk = false })
         ))}
       </div>
       
-      <div className="mt-4 text-center font-secondary">
+      <div className={`mt-4 text-center font-secondary ${cyberpunk ? 'text-white' : ''}`}>
         <span className="font-bold">{calledNumbers.length}</span> / 75 called
       </div>
     </div>
