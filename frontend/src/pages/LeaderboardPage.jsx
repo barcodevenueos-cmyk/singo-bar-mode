@@ -38,10 +38,10 @@ const LeaderboardPage = () => {
   };
   
   const getMedalIcon = (index) => {
-    if (index === 0) return <Trophy className="w-8 h-8 text-black" />;
-    if (index === 1) return <Star className="w-7 h-7 text-gray-600" />;
-    if (index === 2) return <Target className="w-6 h-6 text-orange-600" />;
-    return <span className="font-primary text-xl">{index + 1}</span>;
+    if (index === 0) return <Trophy className="w-8 h-8 text-neon-pink" />;
+    if (index === 1) return <Star className="w-7 h-7 text-neon-cyan" />;
+    if (index === 2) return <Target className="w-6 h-6 text-neon-purple" />;
+    return <span className="font-primary text-xl text-white">{index + 1}</span>;
   };
   
   return (
