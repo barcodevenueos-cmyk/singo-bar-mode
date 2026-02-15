@@ -248,37 +248,38 @@ const SinglePlayerPage = () => {
   }
   
   return (
-    <div className="min-h-screen bg-cream p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 relative">
+      <MusicalNotes />
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-tight">
+            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-purple">
               {playerName}'s Game
             </h1>
             {gameWon && (
-              <div className="font-primary text-2xl md:text-4xl text-pride-pink mt-2" data-testid="winner-message">
+              <div className="font-primary text-2xl md:text-4xl text-neon-pink mt-2 animate-glow-pulse" data-testid="winner-message">
                 🎉 BINGO! YOU WON! 🎉
               </div>
             )}
           </div>
           
           <div className="flex flex-wrap gap-2">
-            <NeoButton
+            <CyberButton
               variant="ghost"
               onClick={() => navigate('/')}
               testId="leave-game-btn"
             >
               <ArrowLeft className="w-5 h-5 inline mr-2" />
               Leave
-            </NeoButton>
-            <NeoButton
+            </CyberButton>
+            <CyberButton
               variant="default"
               onClick={resetGame}
               testId="reset-game-btn"
             >
               <RotateCcw className="w-5 h-5 inline mr-2" />
               New Game
-            </NeoButton>
+            </CyberButton>
           </div>
         </div>
         
