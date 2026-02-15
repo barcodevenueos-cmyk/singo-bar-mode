@@ -29,12 +29,16 @@ const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true,
   }, [calledNumbers, autoDaub]);
   
   return (
-    <div className="bg-white border-2 border-black shadow-hard-lg p-4">
+    <div className={`${cyberpunk ? 'bg-dark-card border-2 border-neon-purple shadow-neon-purple backdrop-blur-sm bg-opacity-80 rounded-lg' : 'bg-white border-2 border-black shadow-hard-lg'} p-4`}>
       <div className="grid grid-cols-5 gap-1 mb-2">
         {columns.map((letter, idx) => (
           <div
             key={idx}
-            className="text-center font-primary text-2xl md:text-3xl py-2 bg-pride-yellow border-2 border-black"
+            className={`text-center font-primary text-2xl md:text-3xl py-2 border-2 ${
+              cyberpunk 
+                ? 'bg-gradient-to-r from-neon-pink to-neon-purple border-neon-pink text-white shadow-neon-pink rounded' 
+                : 'bg-pride-yellow border-black'
+            }`}
             data-testid={`bingo-letter-${letter}`}
           >
             {letter}
