@@ -239,7 +239,7 @@ async def call_number(game_id: str):
     return {"number": number, "called_numbers": called}
 
 @api_router.post("/game/{game_id}/daub")
-async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col: int):
+async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col: int, toggle: bool = False):
     game_doc = await db.games.find_one({"game_id": game_id}, {"_id": 0})
     if not game_doc:
         raise HTTPException(status_code=404, detail="Game not found")
@@ -250,7 +250,11 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
         if player['player_id'] == player_id:
             for card in player['cards']:
                 if card['card_id'] == card_id:
-                    card['daubed'][row][col] = True
+                    # Toggle the daubed state
+                    if toggle:
+                        card['daubed'][row][col] = not card['daubed'][row][col]
+                    else:
+                        card['daubed'][row][col] = True
                     
                     is_winner = check_win(BingoCard(**card), pattern)
                     if is_winner:
@@ -268,13 +272,13 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
                             "winner_name": player['player_name']
                         }, game_id)
                         
-                        return {"daubed": True, "winner": True}
+                        return {"daubed": card['daubed'][row][col], "winner": True}
                     
                     await db.games.update_one(
                         {"game_id": game_id},
                         {"$set": {"players": players}}
                     )
-                    return {"daubed": True, "winner": False}
+                    return {"daubed": card['daubed'][row][col], "winner": False}
     
     raise HTTPException(status_code=404, detail="Card not found")
 
