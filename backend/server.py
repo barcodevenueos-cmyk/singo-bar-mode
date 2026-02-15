@@ -282,6 +282,28 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
     
     raise HTTPException(status_code=404, detail="Card not found")
 
+@api_router.post("/game/{game_id}/add-player")
+async def add_player_to_game(game_id: str, player_name: str):
+    """Add a new player to an existing game"""
+    game_doc = await db.games.find_one({"game_id": game_id}, {"_id": 0})
+    if not game_doc:
+        raise HTTPException(status_code=404, detail="Game not found")
+    
+    player_id = str(uuid.uuid4())
+    card = generate_bingo_card()
+    
+    new_player = Player(player_id=player_id, player_name=player_name, cards=[card])
+    
+    players = game_doc.get('players', [])
+    players.append(new_player.model_dump())
+    
+    await db.games.update_one(
+        {"game_id": game_id},
+        {"$set": {"players": players}}
+    )
+    
+    return {"player_id": player_id, "card": card, "game_id": game_id}
+
 @api_router.get("/game/{game_id}")
 async def get_game(game_id: str):
     game_doc = await db.games.find_one({"game_id": game_id}, {"_id": 0})
