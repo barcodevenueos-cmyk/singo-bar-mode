@@ -10,6 +10,7 @@ import CalledNumbersBoard from '../components/CalledNumbersBoard';
 import MusicalNotes from '../components/MusicalNotes';
 import { ArrowLeft, Play, Pause, Users, Crown } from 'lucide-react';
 import { playSound } from '../utils/sounds';
+import { speakNumber, initVoice } from '../utils/voice';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
