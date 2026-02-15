@@ -1,0 +1,85 @@
+{
+  "identity": {
+    "name": "Singo",
+    "aesthetic": "Cyberpunk Nightclub",
+    "tone": "Electric, Vibrant, Musical, High-Energy",
+    "theme_mode": "dark"
+  },
+  "typography": {
+    "primary_font": "Orbitron",
+    "secondary_font": "Rajdhani",
+    "mono_font": "Share Tech Mono",
+    "import_url": "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap",
+    "usage": {
+      "h1": "font-primary text-6xl md:text-8xl uppercase tracking-wider font-black",
+      "h2": "font-primary text-4xl md:text-6xl uppercase tracking-wide font-bold",
+      "h3": "font-primary text-2xl md:text-3xl uppercase tracking-wide",
+      "body": "font-secondary text-base md:text-lg font-normal",
+      "label": "font-mono text-xs uppercase tracking-widest",
+      "numbers": "font-primary font-black text-shadow-neon"
+    }
+  },
+  "colors": {
+    "palette": {
+      "neon": {
+        "pink": "#FF10F0",
+        "purple": "#9D00FF",
+        "cyan": "#00F0FF",
+        "blue": "#4169E1",
+        "silver": "#C0C0C0"
+      },
+      "dark": {
+        "bg": "#0A0A0A",
+        "card": "#1A1A2E",
+        "surface": "#16213E"
+      }
+    },
+    "semantic": {
+      "background": "#0A0A0A",
+      "foreground": "#FFFFFF",
+      "primary": "#FF10F0",
+      "secondary": "#9D00FF",
+      "accent": "#00F0FF",
+      "border": "#9D00FF",
+      "success": "#00FF88",
+      "error": "#FF1744",
+      "daub": "#FF10F0"
+    }
+  },
+  "effects": {
+    "neon_glow": {
+      "pink": "0 0 10px #FF10F0, 0 0 20px #FF10F0, 0 0 30px #FF10F0",
+      "purple": "0 0 10px #9D00FF, 0 0 20px #9D00FF, 0 0 30px #9D00FF",
+      "cyan": "0 0 10px #00F0FF, 0 0 20px #00F0FF, 0 0 30px #00F0FF",
+      "silver": "0 0 10px #C0C0C0, 0 0 20px #C0C0C0"
+    },
+    "text_shadow": {
+      "neon": "0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor"
+    }
+  },
+  "ui_components": {
+    "button": {
+      "primary": "bg-gradient-to-r from-neon-pink to-neon-purple text-white border-2 border-neon-pink shadow-neon-pink hover:shadow-neon-purple transition-all uppercase font-primary tracking-wider px-8 py-4 text-xl font-bold",
+      "secondary": "bg-gradient-to-r from-neon-purple to-neon-cyan text-white border-2 border-neon-cyan shadow-neon-cyan hover:shadow-neon-purple transition-all uppercase font-primary tracking-wider px-6 py-3",
+      "ghost": "bg-transparent text-neon-cyan border-2 border-neon-cyan hover:bg-neon-cyan/10 hover:shadow-neon-cyan transition-all uppercase font-primary tracking-wider"
+    },
+    "card": {
+      "base": "bg-dark-card border-2 border-neon-purple shadow-neon-purple p-6 backdrop-blur-sm bg-opacity-80",
+      "interactive": "bg-dark-card border-2 border-neon-pink shadow-neon-pink hover:shadow-neon-cyan transition-all cursor-pointer backdrop-blur-sm bg-opacity-80 hover:scale-105"
+    },
+    "bingo_cell": {
+      "base": "aspect-square flex items-center justify-center border-2 border-neon-purple text-2xl md:text-4xl font-primary font-black bg-dark-surface cursor-pointer transition-all select-none hover:shadow-neon-cyan",
+      "daubed": "bg-gradient-to-br from-neon-pink to-neon-purple text-white border-neon-pink shadow-neon-pink animate-pulse",
+      "called": "bg-neon-cyan/20 text-neon-cyan border-neon-cyan shadow-neon-cyan"
+    }
+  },
+  "musical_notes": ["♪", "♫", "♬", "♩", "𝄞"],
+  "instructions": [
+    "Use dark background (#0A0A0A) with neon accent colors",
+    "Apply neon glow effects (box-shadow) to all interactive elements",
+    "Add musical notes floating animation in background",
+    "Use gradient overlays for buttons and important elements",
+    "Text should have subtle neon glow on headings",
+    "Cyberpunk grid pattern as background texture"
+  ]
+}
