@@ -28,7 +28,7 @@ const HomePage = () => {
             </div>
           </div>
           <p className="font-secondary text-lg md:text-xl font-normal max-w-2xl mx-auto text-gray-300 mb-6">
-            The Ultimate Cyberpunk Musical Bingo Experience
+            The ultimate bingo experience
           </p>
           <div className="flex justify-center gap-4">
             <CyberButton
