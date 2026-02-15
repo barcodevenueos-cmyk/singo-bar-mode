@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import axios from 'axios';
 import confetti from 'canvas-confetti';
+import QRCode from 'qrcode.react';
 import { CyberButton } from '../components/ui/CyberButton';
 import { CyberInput } from '../components/ui/CyberInput';
 import { CyberCard } from '../components/ui/CyberCard';
 import BingoCard from '../components/BingoCard';
 import CalledNumbersBoard from '../components/CalledNumbersBoard';
 import MusicalNotes from '../components/MusicalNotes';
-import { ArrowLeft, Play, Pause, Users, Crown } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Users, Crown, X, Volume2, VolumeX } from 'lucide-react';
 import { playSound } from '../utils/sounds';
+import { speakNumber, initVoice } from '../utils/voice';
 import { speakNumber, initVoice } from '../utils/voice';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
