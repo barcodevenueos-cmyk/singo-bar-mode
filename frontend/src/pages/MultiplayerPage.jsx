@@ -78,9 +78,10 @@ const MultiplayerPage = () => {
   };
   
   return (
-    <div className="min-h-screen bg-cream p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
-        <NeoButton
+    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
+      <MusicalNotes />
+      <div className="max-w-6xl mx-auto relative z-10">
+        <CyberButton
           variant="ghost"
           onClick={() => navigate('/')}
           className="mb-8"
@@ -88,21 +89,21 @@ const MultiplayerPage = () => {
         >
           <ArrowLeft className="w-5 h-5 inline mr-2" />
           Back to Home
-        </NeoButton>
+        </CyberButton>
         
-        <h1 className="font-primary text-4xl md:text-6xl uppercase tracking-tight mb-8 text-center">
-          KELLY'S EYE - Multiplayer
+        <h1 className="font-primary text-4xl md:text-6xl uppercase tracking-wider mb-8 text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-purple via-neon-pink to-neon-cyan">
+          Multiplayer Lobby
         </h1>
         
         <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <NeoCard>
-            <h2 className="font-primary text-2xl uppercase mb-4">Create Room</h2>
+          <CyberCard neonColor="pink">
+            <h2 className="font-primary text-2xl uppercase mb-4 text-neon-pink">Create Room</h2>
             <div className="space-y-4">
               <div>
-                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2">
+                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2 text-neon-cyan">
                   Your Name
                 </label>
-                <NeoInput
+                <CyberInput
                   placeholder="Enter your name"
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
@@ -110,17 +111,17 @@ const MultiplayerPage = () => {
                 />
               </div>
               <div>
-                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2">
+                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2 text-neon-cyan">
                   Room Name
                 </label>
-                <NeoInput
+                <CyberInput
                   placeholder="Enter room name"
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
                   testId="room-name-input"
                 />
               </div>
-              <NeoButton
+              <CyberButton
                 variant="primary"
                 onClick={createRoom}
                 disabled={loading}
@@ -129,20 +130,20 @@ const MultiplayerPage = () => {
               >
                 <Plus className="w-5 h-5 inline mr-2" />
                 Create Room
-              </NeoButton>
+              </CyberButton>
             </div>
-          </NeoCard>
+          </CyberCard>
           
-          <NeoCard>
+          <CyberCard neonColor="cyan">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="font-primary text-2xl uppercase">Available Rooms</h2>
-              <NeoButton
+              <h2 className="font-primary text-2xl uppercase text-neon-cyan">Available Rooms</h2>
+              <CyberButton
                 variant="ghost"
                 onClick={loadRooms}
                 testId="refresh-rooms-btn"
               >
                 <RefreshCw className="w-5 h-5" />
-              </NeoButton>
+              </CyberButton>
             </div>
             
             {!playerName.trim() && (
