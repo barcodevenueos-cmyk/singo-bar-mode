@@ -329,7 +329,7 @@ const SinglePlayerPage = () => {
                   key={card.card_id}
                   card={card}
                   calledNumbers={calledNumbers}
-                  onDaub={(row, col) => handleDaub(idx, row, col)}
+                  onDaub={(row, col, isDaub) => handleDaub(idx, row, col)}
                   autoDaub={autoDaub}
                   soundEnabled={soundEnabled}
                 />
