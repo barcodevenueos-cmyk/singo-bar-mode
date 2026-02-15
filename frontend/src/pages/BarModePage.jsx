@@ -32,6 +32,7 @@ const BarModePage = () => {
   const [autoCall, setAutoCall] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [ws, setWs] = useState(null);
   
   useEffect(() => {
