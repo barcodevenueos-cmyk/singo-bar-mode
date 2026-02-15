@@ -22,6 +22,9 @@ const BarModePage = () => {
   const [setupComplete, setSetupComplete] = useState(false);
   const [role, setRole] = useState('player');
   const [playerName, setPlayerName] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const ADMIN_PASSWORD = 'singo2024'; // Can be changed or moved to env variable
   const [gameData, setGameData] = useState(null);
   const [calledNumbers, setCalledNumbers] = useState([]);
   const [currentNumber, setCurrentNumber] = useState(null);
