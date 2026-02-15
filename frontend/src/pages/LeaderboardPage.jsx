@@ -31,10 +31,10 @@ const LeaderboardPage = () => {
   };
   
   const getMedalColor = (index) => {
-    if (index === 0) return 'bg-pride-yellow';
-    if (index === 1) return 'bg-gray-300';
-    if (index === 2) return 'bg-pride-orange';
-    return 'bg-white';
+    if (index === 0) return 'bg-gradient-to-r from-neon-pink to-neon-purple';
+    if (index === 1) return 'bg-gradient-to-r from-neon-cyan to-neon-blue';
+    if (index === 2) return 'bg-gradient-to-r from-neon-purple to-neon-pink';
+    return 'bg-dark-surface';
   };
   
   const getMedalIcon = (index) => {
