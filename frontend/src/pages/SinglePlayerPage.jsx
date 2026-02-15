@@ -202,10 +202,10 @@ const SinglePlayerPage = () => {
             
             <div className="space-y-6">
               <div>
-                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2">
+                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2 text-neon-cyan">
                   Your Name
                 </label>
-                <NeoInput
+                <CyberInput
                   placeholder="Enter your name"
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
@@ -214,10 +214,10 @@ const SinglePlayerPage = () => {
               </div>
               
               <div>
-                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2">
+                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2 text-neon-cyan">
                   Number of Cards (1-4)
                 </label>
-                <NeoInput
+                <CyberInput
                   type="number"
                   min="1"
                   max="4"
@@ -232,16 +232,16 @@ const SinglePlayerPage = () => {
                 onSelectPattern={setSelectedPattern}
               />
               
-              <NeoButton
+              <CyberButton
                 variant="primary"
                 onClick={startGame}
                 className="w-full"
                 testId="start-game-btn"
               >
                 Start Game
-              </NeoButton>
+              </CyberButton>
             </div>
-          </NeoCard>
+          </CyberCard>
         </div>
       </div>
     );
