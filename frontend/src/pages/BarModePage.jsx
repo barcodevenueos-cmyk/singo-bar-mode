@@ -250,7 +250,7 @@ const BarModePage = () => {
                     </p>
                   )}
                   <p className="text-gray-500 text-xs mt-2 font-secondary">
-                    Default password: singo2024
+                    Default password: 5749
                   </p>
                 </div>
               )}
