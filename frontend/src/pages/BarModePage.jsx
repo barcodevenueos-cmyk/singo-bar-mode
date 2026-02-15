@@ -228,6 +228,33 @@ const BarModePage = () => {
                 />
               </div>
               
+              {role === 'admin' && (
+                <div>
+                  <label className="font-mono text-xs uppercase tracking-widest text-neon-pink block mb-2">
+                    Admin Password
+                  </label>
+                  <CyberInput
+                    type="password"
+                    placeholder="Enter admin password"
+                    value={adminPassword}
+                    onChange={(e) => {
+                      setAdminPassword(e.target.value);
+                      setPasswordError('');
+                    }}
+                    testId="admin-password-input"
+                    className={passwordError ? 'border-red-500 shadow-red-500' : ''}
+                  />
+                  {passwordError && (
+                    <p className="text-red-500 text-sm mt-2 font-secondary" data-testid="password-error">
+                      {passwordError}
+                    </p>
+                  )}
+                  <p className="text-gray-500 text-xs mt-2 font-secondary">
+                    Default password: singo2024
+                  </p>
+                </div>
+              )}
+              
               <CyberButton
                 variant="primary"
                 onClick={startBarMode}
