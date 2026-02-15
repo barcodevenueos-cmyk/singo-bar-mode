@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { NeoButton } from '../components/ui/NeoButton';
-import { NeoCard } from '../components/ui/NeoCard';
+import { CyberButton } from '../components/ui/CyberButton';
+import { CyberCard } from '../components/ui/CyberCard';
+import MusicalNotes from '../components/MusicalNotes';
 import { ArrowLeft, Trophy, Star, Target } from 'lucide-react';
 import { motion } from 'framer-motion';
 
