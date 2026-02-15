@@ -276,7 +276,7 @@ const BarModePage = () => {
   // Player View - Only Bingo Card
   if (role === 'player') {
     return (
-      <div className="min-h-screen bg-dark-bg cyberpunk-bg flex items-center justify-center p-4 relative">
+      <div className="min-h-screen bg-dark-bg cyberpunk-bg flex flex-col items-center justify-center p-4 relative">
         <MusicalNotes />
         <div className="relative z-10 w-full max-w-2xl">
           {gameWon && (
@@ -286,6 +286,19 @@ const BarModePage = () => {
               </h2>
             </div>
           )}
+          
+          <div className="mb-4 flex justify-center">
+            <label className="flex items-center gap-3 font-secondary font-medium text-white bg-dark-card border-2 border-neon-purple px-6 py-3 rounded-lg shadow-neon-purple">
+              <input
+                type="checkbox"
+                checked={autoDaub}
+                onChange={(e) => setAutoDaub(e.target.checked)}
+                className="w-6 h-6 accent-neon-pink"
+                data-testid="player-auto-daub-checkbox"
+              />
+              <span className="text-lg uppercase tracking-wider font-primary">Auto-Daub</span>
+            </label>
+          </div>
           
           {gameData && gameData.cards && gameData.cards[0] && (
             <BingoCard
