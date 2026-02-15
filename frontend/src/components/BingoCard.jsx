@@ -7,12 +7,19 @@ const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true,
   const columns = ['B', 'I', 'N', 'G', 'O'];
   
   const handleCellClick = (row, col) => {
-    if (card.daubed[row][col]) return;
-    
     const number = card.numbers[row][col];
+    
+    // Allow toggling of daubed cells
+    if (card.daubed[row][col]) {
+      if (soundEnabled) playSound('click');
+      onDaub(row, col, false); // Undaub
+      return;
+    }
+    
+    // Daub if it's FREE space or if number has been called
     if (number === 0 || calledNumbers.includes(number)) {
       if (soundEnabled) playSound('daub');
-      onDaub(row, col);
+      onDaub(row, col, true); // Daub
     }
   };
   
