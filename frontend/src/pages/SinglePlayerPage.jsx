@@ -284,7 +284,7 @@ const SinglePlayerPage = () => {
         </div>
         
         <div className="mb-6 flex flex-wrap gap-4">
-          <NeoButton
+          <CyberButton
             variant={autoCall ? 'secondary' : 'default'}
             onClick={() => setAutoCall(!autoCall)}
             disabled={gameWon}
@@ -292,27 +292,27 @@ const SinglePlayerPage = () => {
           >
             {autoCall ? <Pause className="w-5 h-5 inline mr-2" /> : <Play className="w-5 h-5 inline mr-2" />}
             Auto Call: {autoCall ? 'ON' : 'OFF'}
-          </NeoButton>
+          </CyberButton>
           
-          <NeoButton
+          <CyberButton
             variant="default"
             onClick={callNextNumber}
             disabled={autoCall || gameWon}
             testId="manual-call-btn"
           >
             Call Next Number
-          </NeoButton>
+          </CyberButton>
           
-          <NeoButton
+          <CyberButton
             variant="ghost"
             onClick={() => setSoundEnabled(!soundEnabled)}
             testId="sound-toggle-btn"
           >
             {soundEnabled ? <Volume2 className="w-5 h-5 inline mr-2" /> : <VolumeX className="w-5 h-5 inline mr-2" />}
             Sound: {soundEnabled ? 'ON' : 'OFF'}
-          </NeoButton>
+          </CyberButton>
           
-          <label className="flex items-center gap-2 font-secondary font-medium">
+          <label className="flex items-center gap-2 font-secondary font-medium text-white">
             <input
               type="checkbox"
               checked={autoDaub}
@@ -335,6 +335,7 @@ const SinglePlayerPage = () => {
                   onDaub={(row, col, isDaub) => handleDaub(idx, row, col)}
                   autoDaub={autoDaub}
                   soundEnabled={soundEnabled}
+                  cyberpunk={true}
                 />
               ))}
             </div>
@@ -344,6 +345,7 @@ const SinglePlayerPage = () => {
             <CalledNumbersBoard
               calledNumbers={calledNumbers}
               currentNumber={currentNumber}
+              cyberpunk={true}
             />
           </div>
         </div>
