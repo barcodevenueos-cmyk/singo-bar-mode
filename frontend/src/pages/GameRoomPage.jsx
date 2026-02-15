@@ -155,17 +155,19 @@ const GameRoomPage = () => {
   
   if (!room) {
     return (
-      <div className="min-h-screen bg-cream p-4 flex items-center justify-center">
-        <div className="font-primary text-2xl">Loading room...</div>
+      <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 flex items-center justify-center relative">
+        <MusicalNotes />
+        <div className="font-primary text-2xl text-white relative z-10">Loading room...</div>
       </div>
     );
   }
   
   if (!gameStarted) {
     return (
-      <div className="min-h-screen bg-cream p-4 md:p-8">
-        <div className="max-w-4xl mx-auto">
-          <NeoButton
+      <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
+        <MusicalNotes />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <CyberButton
             variant="ghost"
             onClick={() => navigate('/multiplayer')}
             className="mb-8"
@@ -173,10 +175,10 @@ const GameRoomPage = () => {
           >
             <ArrowLeft className="w-5 h-5 inline mr-2" />
             Back to Lobby
-          </NeoButton>
+          </CyberButton>
           
-          <NeoCard>
-            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-tight mb-6 text-center">
+          <CyberCard neonColor="purple">
+            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-wider mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan">
               {room.room_name}
             </h1>
             
