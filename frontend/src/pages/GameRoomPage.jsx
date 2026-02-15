@@ -183,24 +183,24 @@ const GameRoomPage = () => {
             </h1>
             
             <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-2 px-6 py-3 bg-pride-yellow border-2 border-black shadow-hard-md">
-                <Users className="w-6 h-6" />
-                <span className="font-primary text-2xl">
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-neon-purple to-neon-cyan border-2 border-neon-cyan shadow-neon-cyan rounded-lg">
+                <Users className="w-6 h-6 text-white" />
+                <span className="font-primary text-2xl text-white">
                   {room.player_ids.length} / {room.max_players} Players
                 </span>
               </div>
             </div>
             
             <div className="mb-8">
-              <h2 className="font-primary text-xl uppercase mb-4">Players in Room:</h2>
+              <h2 className="font-primary text-xl uppercase mb-4 text-neon-cyan">Players in Room:</h2>
               <div className="space-y-2">
                 {room.player_ids.map((pid, idx) => (
                   <div
                     key={pid}
-                    className="bg-white border-2 border-black p-3 shadow-hard-sm"
+                    className="bg-dark-surface border-2 border-neon-purple p-3 rounded-lg hover:border-neon-cyan transition-all"
                     data-testid={`player-${idx}`}
                   >
-                    <span className="font-secondary font-medium">
+                    <span className="font-secondary font-medium text-white">
                       Player {idx + 1} {pid === room.host_id && '(Host)'} {pid === playerId && '(You)'}
                     </span>
                   </div>
@@ -209,7 +209,7 @@ const GameRoomPage = () => {
             </div>
             
             {room.host_id === playerId && (
-              <NeoButton
+              <CyberButton
                 variant="primary"
                 onClick={startGame}
                 className="w-full"
@@ -218,47 +218,48 @@ const GameRoomPage = () => {
               >
                 <Play className="w-5 h-5 inline mr-2" />
                 Start Game
-              </NeoButton>
+              </CyberButton>
             )}
             
             {room.host_id !== playerId && (
-              <div className="text-center font-secondary text-lg">
+              <div className="text-center font-secondary text-lg text-gray-300">
                 Waiting for host to start the game...
               </div>
             )}
-          </NeoCard>
+          </CyberCard>
         </div>
       </div>
     );
   }
   
   return (
-    <div className="min-h-screen bg-cream p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 relative">
+      <MusicalNotes />
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-tight">
+            <h1 className="font-primary text-3xl md:text-5xl uppercase tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-purple">
               {room.room_name}
             </h1>
             {gameWon && (
-              <div className="font-primary text-2xl md:text-4xl text-pride-pink mt-2" data-testid="winner-announcement">
+              <div className="font-primary text-2xl md:text-4xl text-neon-pink mt-2 animate-glow-pulse" data-testid="winner-announcement">
                 🎉 {winnerName} WON! 🎉
               </div>
             )}
           </div>
           
-          <NeoButton
+          <CyberButton
             variant="ghost"
             onClick={() => navigate('/multiplayer')}
             testId="leave-game-room-btn"
           >
             <ArrowLeft className="w-5 h-5 inline mr-2" />
             Leave Game
-          </NeoButton>
+          </CyberButton>
         </div>
         
         <div className="mb-6">
-          <label className="flex items-center gap-2 font-secondary font-medium">
+          <label className="flex items-center gap-2 font-secondary font-medium text-white">
             <input
               type="checkbox"
               checked={autoDaub}
@@ -279,6 +280,7 @@ const GameRoomPage = () => {
                   calledNumbers={calledNumbers}
                   onDaub={handleDaub}
                   autoDaub={autoDaub}
+                  cyberpunk={true}
                 />
               </div>
             )}
@@ -288,6 +290,7 @@ const GameRoomPage = () => {
             <CalledNumbersBoard
               calledNumbers={calledNumbers}
               currentNumber={currentNumber}
+              cyberpunk={true}
             />
           </div>
         </div>
