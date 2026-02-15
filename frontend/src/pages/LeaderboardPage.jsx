@@ -45,9 +45,10 @@ const LeaderboardPage = () => {
   };
   
   return (
-    <div className="min-h-screen bg-cream p-4 md:p-8">
-      <div className="max-w-4xl mx-auto">
-        <NeoButton
+    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
+      <MusicalNotes />
+      <div className="max-w-4xl mx-auto relative z-10">
+        <CyberButton
           variant="ghost"
           onClick={() => navigate('/')}
           className="mb-8"
@@ -55,7 +56,7 @@ const LeaderboardPage = () => {
         >
           <ArrowLeft className="w-5 h-5 inline mr-2" />
           Back to Home
-        </NeoButton>
+        </CyberButton>
         
         <motion.div
           initial={{ y: -20, opacity: 0 }}
@@ -63,18 +64,18 @@ const LeaderboardPage = () => {
           className="text-center mb-8"
         >
           <div className="inline-block mb-4">
-            <div className="rainbow-border">
-              <div className="rainbow-border-content px-8 py-4">
-                <h1 className="font-primary text-5xl md:text-6xl uppercase tracking-tighter leading-[0.9] text-black">
+            <div className="gradient-border rounded-lg">
+              <div className="gradient-border-content px-8 py-4 rounded-lg">
+                <h1 className="font-primary text-5xl md:text-6xl uppercase tracking-wider font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan">
                   LEADERBOARD
                 </h1>
               </div>
             </div>
           </div>
-          <p className="font-secondary text-lg">Top Players - Who's Got Kelly's Eye?</p>
+          <p className="font-secondary text-lg text-gray-300">Top Players - Who's Got the Crown?</p>
         </motion.div>
         
-        <NeoCard>
+        <CyberCard neonColor="purple">{}
           {loading ? (
             <div className="text-center py-12 font-secondary text-lg">Loading leaderboard...</div>
           ) : leaderboard.length === 0 ? (
