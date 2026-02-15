@@ -21,10 +21,14 @@ const CalledNumbersBoard = ({ calledNumbers, currentNumber, cyberpunk = false })
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
           animate={{ scale: 1, rotate: 0 }}
-          className="mb-6 p-6 bg-pride-yellow border-2 border-black shadow-hard-md text-center"
+          className={`mb-6 p-6 border-2 text-center ${
+            cyberpunk 
+              ? 'bg-gradient-to-r from-neon-pink to-neon-purple border-neon-pink shadow-neon-pink rounded-lg' 
+              : 'bg-pride-yellow border-black shadow-hard-md'
+          }`}
           data-testid="current-number-display"
         >
-          <div className="font-primary text-6xl md:text-8xl">{currentNumber}</div>
+          <div className={`font-primary text-6xl md:text-8xl ${cyberpunk ? 'text-white' : 'text-black'}`}>{currentNumber}</div>
         </motion.div>
       )}
       
