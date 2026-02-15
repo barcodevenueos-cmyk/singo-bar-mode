@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { NeoButton } from '../components/ui/NeoButton';
-import { NeoCard } from '../components/ui/NeoCard';
-import { Users, User, Trophy } from 'lucide-react';
+import { CyberButton } from '../components/ui/CyberButton';
+import { CyberCard } from '../components/ui/CyberCard';
+import MusicalNotes from '../components/MusicalNotes';
+import { Users, User, Trophy, Music } from 'lucide-react';
 
 const HomePage = () => {
   const navigate = useNavigate();
