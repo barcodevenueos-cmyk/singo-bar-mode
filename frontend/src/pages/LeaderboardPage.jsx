@@ -77,14 +77,14 @@ const LeaderboardPage = () => {
         
         <CyberCard neonColor="purple">{}
           {loading ? (
-            <div className="text-center py-12 font-secondary text-lg">Loading leaderboard...</div>
+            <div className="text-center py-12 font-secondary text-lg text-white">Loading leaderboard...</div>
           ) : leaderboard.length === 0 ? (
-            <div className="text-center py-12 font-secondary text-lg">
+            <div className="text-center py-12 font-secondary text-lg text-white">
               No players yet. Be the first to win!
             </div>
           ) : (
             <div className="space-y-3">
-              <div className="grid grid-cols-12 gap-4 pb-3 border-b-2 border-black font-mono text-xs uppercase tracking-widest font-bold">
+              <div className="grid grid-cols-12 gap-4 pb-3 border-b-2 border-neon-purple font-mono text-xs uppercase tracking-widest font-bold text-neon-cyan">
                 <div className="col-span-1">Rank</div>
                 <div className="col-span-5">Player</div>
                 <div className="col-span-2 text-center">Wins</div>
@@ -100,8 +100,8 @@ const LeaderboardPage = () => {
                   transition={{ delay: index * 0.05 }}
                   data-testid={`leaderboard-entry-${index}`}
                   className={`
-                    grid grid-cols-12 gap-4 p-4 border-2 border-black
-                    ${getMedalColor(index)} shadow-hard-sm
+                    grid grid-cols-12 gap-4 p-4 border-2 rounded-lg
+                    ${getMedalColor(index)} ${index < 3 ? 'border-neon-pink shadow-neon-pink' : 'border-neon-purple'} text-white
                   `}
                 >
                   <div className="col-span-1 flex items-center justify-center">
@@ -123,16 +123,16 @@ const LeaderboardPage = () => {
               ))}
             </div>
           )}
-        </NeoCard>
+        </CyberCard>
         
         <div className="mt-8 text-center">
-          <NeoButton
+          <CyberButton
             variant="primary"
             onClick={() => navigate('/')}
             testId="play-now-btn"
           >
             Play Now
-          </NeoButton>
+          </CyberButton>
         </div>
       </div>
     </div>
