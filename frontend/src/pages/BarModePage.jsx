@@ -128,7 +128,8 @@ const BarModePage = () => {
     if (!gameData || gameWon) return;
     
     const updatedCards = [...gameData.cards];
-    updatedCards[0].daubed[row][col] = true;
+    const currentState = updatedCards[0].daubed[row][col];
+    updatedCards[0].daubed[row][col] = !currentState; // Toggle
     setGameData({ ...gameData, cards: updatedCards });
     
     try {
@@ -137,7 +138,8 @@ const BarModePage = () => {
           player_id: gameData.player_id,
           card_id: gameData.cards[0].card_id,
           row,
-          col
+          col,
+          toggle: true
         }
       });
       
