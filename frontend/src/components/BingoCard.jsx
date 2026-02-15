@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { playSound } from '../utils/sounds';
 
-const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true }) => {
+const BingoCard = ({ card, calledNumbers, onDaub, autoDaub, soundEnabled = true, cyberpunk = false }) => {
   const columns = ['B', 'I', 'N', 'G', 'O'];
   
   const handleCellClick = (row, col) => {
