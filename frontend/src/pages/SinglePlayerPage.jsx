@@ -112,7 +112,8 @@ const SinglePlayerPage = () => {
     if (!gameData || gameWon) return;
     
     const updatedCards = [...gameData.cards];
-    updatedCards[cardIndex].daubed[row][col] = true;
+    const currentState = updatedCards[cardIndex].daubed[row][col];
+    updatedCards[cardIndex].daubed[row][col] = !currentState; // Toggle
     setGameData({ ...gameData, cards: updatedCards });
     
     try {
@@ -121,7 +122,8 @@ const SinglePlayerPage = () => {
           player_id: gameData.player_id,
           card_id: gameData.cards[cardIndex].card_id,
           row,
-          col
+          col,
+          toggle: true
         }
       });
       
