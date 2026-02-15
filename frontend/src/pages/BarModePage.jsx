@@ -56,6 +56,19 @@ const BarModePage = () => {
       return;
     }
     
+    // Validate admin password if admin role selected
+    if (role === 'admin') {
+      if (!adminPassword) {
+        setPasswordError('Admin password is required');
+        return;
+      }
+      if (adminPassword !== ADMIN_PASSWORD) {
+        setPasswordError('Incorrect admin password');
+        return;
+      }
+    }
+    
+    setPasswordError('');
     if (soundEnabled) playSound('click');
     
     try {
