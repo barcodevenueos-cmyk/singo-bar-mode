@@ -182,9 +182,10 @@ const SinglePlayerPage = () => {
   
   if (!gameStarted) {
     return (
-      <div className="min-h-screen bg-cream p-4 md:p-8">
-        <div className="max-w-2xl mx-auto">
-          <NeoButton
+      <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
+        <MusicalNotes />
+        <div className="max-w-2xl mx-auto relative z-10">
+          <CyberButton
             variant="ghost"
             onClick={() => navigate('/')}
             className="mb-8"
@@ -192,10 +193,10 @@ const SinglePlayerPage = () => {
           >
             <ArrowLeft className="w-5 h-5 inline mr-2" />
             Back to Home
-          </NeoButton>
+          </CyberButton>
           
-          <NeoCard>
-            <h1 className="font-primary text-4xl uppercase tracking-tight mb-6 text-center">
+          <CyberCard neonColor="pink">
+            <h1 className="font-primary text-4xl uppercase tracking-wider text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-neon-cyan">
               Single Player Setup
             </h1>
             
