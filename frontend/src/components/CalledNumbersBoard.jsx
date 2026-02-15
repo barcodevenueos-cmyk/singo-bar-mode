@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const CalledNumbersBoard = ({ calledNumbers, currentNumber }) => {
+const CalledNumbersBoard = ({ calledNumbers, currentNumber, cyberpunk = false }) => {
   const columns = ['B', 'I', 'N', 'G', 'O'];
   const ranges = [
     { min: 1, max: 15 },
@@ -12,8 +12,8 @@ const CalledNumbersBoard = ({ calledNumbers, currentNumber }) => {
   ];
   
   return (
-    <div className="bg-white border-2 border-black shadow-hard-lg p-4">
-      <h3 className="font-primary text-2xl uppercase mb-4 text-center" data-testid="called-numbers-title">
+    <div className={`${cyberpunk ? 'bg-dark-card border-2 border-neon-purple shadow-neon-purple backdrop-blur-sm bg-opacity-80 rounded-lg' : 'bg-white border-2 border-black shadow-hard-lg'} p-4`}>
+      <h3 className={`font-primary text-2xl uppercase mb-4 text-center ${cyberpunk ? 'text-neon-cyan' : ''}`} data-testid="called-numbers-title">
         Called Numbers
       </h3>
       
