@@ -47,8 +47,19 @@ const HomePage = () => {
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
+            className="relative"
           >
-            <CyberCard interactive onClick={() => navigate('/single-player')} testId="single-player-card" neonColor="pink">
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg border-2 border-neon-pink">
+              <div className="text-center">
+                <div className="font-primary text-3xl uppercase tracking-wider text-neon-pink mb-2">
+                  Coming Soon
+                </div>
+                <div className="font-secondary text-sm text-gray-300">
+                  Available in next update
+                </div>
+              </div>
+            </div>
+            <CyberCard interactive={false} testId="single-player-card" neonColor="pink" className="opacity-50">
               <div className="text-center space-y-4">
                 <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-pink to-neon-purple rounded-lg shadow-neon-pink flex items-center justify-center">
                   <User className="w-10 h-10 text-white" />
@@ -57,9 +68,6 @@ const HomePage = () => {
                 <p className="font-secondary text-base leading-relaxed text-gray-300">
                   Play at your own pace with auto-calling numbers and pattern challenges.
                 </p>
-                <CyberButton variant="primary" className="w-full" testId="play-single-btn">
-                  Play Solo
-                </CyberButton>
               </div>
             </CyberCard>
           </motion.div>
@@ -89,8 +97,19 @@ const HomePage = () => {
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.4 }}
+            className="relative"
           >
-            <CyberCard interactive onClick={() => navigate('/multiplayer')} testId="multiplayer-card" neonColor="cyan">
+            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg border-2 border-neon-cyan">
+              <div className="text-center">
+                <div className="font-primary text-3xl uppercase tracking-wider text-neon-cyan mb-2">
+                  Coming Soon
+                </div>
+                <div className="font-secondary text-sm text-gray-300">
+                  Available in next update
+                </div>
+              </div>
+            </div>
+            <CyberCard interactive={false} testId="multiplayer-card" neonColor="cyan" className="opacity-50">
               <div className="text-center space-y-4">
                 <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-cyan to-neon-blue rounded-lg shadow-neon-cyan flex items-center justify-center">
                   <Users className="w-10 h-10 text-white" />
@@ -99,9 +118,6 @@ const HomePage = () => {
                 <p className="font-secondary text-base leading-relaxed text-gray-300">
                   Join or create rooms and compete with friends. First to BINGO wins!
                 </p>
-                <CyberButton variant="secondary" className="w-full" testId="play-multiplayer-btn">
-                  Play Together
-                </CyberButton>
               </div>
             </CyberCard>
           </motion.div>
