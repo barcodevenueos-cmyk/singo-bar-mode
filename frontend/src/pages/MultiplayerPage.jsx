@@ -148,10 +148,10 @@ const MultiplayerPage = () => {
             
             {!playerName.trim() && (
               <div className="mb-4">
-                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2">
+                <label className="font-mono text-xs uppercase tracking-widest font-bold block mb-2 text-neon-cyan">
                   Your Name (to join)
                 </label>
-                <NeoInput
+                <CyberInput
                   placeholder="Enter your name"
                   value={playerName}
                   onChange={(e) => setPlayerName(e.target.value)}
@@ -162,38 +162,38 @@ const MultiplayerPage = () => {
             
             <div className="space-y-3 max-h-96 overflow-y-auto">
               {rooms.length === 0 ? (
-                <p className="text-center font-secondary text-gray-500 py-8">
+                <p className="text-center font-secondary text-gray-400 py-8">
                   No rooms available. Create one!
                 </p>
               ) : (
                 rooms.map((room) => (
                   <div
                     key={room.room_id}
-                    className="bg-white border-2 border-black p-4 shadow-hard-sm"
+                    className="bg-dark-surface border-2 border-neon-purple p-4 rounded-lg hover:border-neon-cyan transition-all"
                     data-testid={`room-${room.room_id}`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <h3 className="font-primary text-xl uppercase">{room.room_name}</h3>
-                        <p className="font-secondary text-sm">
+                        <h3 className="font-primary text-xl uppercase text-white">{room.room_name}</h3>
+                        <p className="font-secondary text-sm text-gray-300">
                           <Users className="w-4 h-4 inline mr-1" />
                           {room.player_ids.length} / {room.max_players} players
                         </p>
                       </div>
-                      <NeoButton
+                      <CyberButton
                         variant="secondary"
                         onClick={() => joinRoom(room.room_id)}
                         disabled={loading || room.player_ids.length >= room.max_players}
                         testId={`join-room-${room.room_id}-btn`}
                       >
                         Join
-                      </NeoButton>
+                      </CyberButton>
                     </div>
                   </div>
                 ))
               )}
             </div>
-          </NeoCard>
+          </CyberCard>
         </div>
       </div>
     </div>
