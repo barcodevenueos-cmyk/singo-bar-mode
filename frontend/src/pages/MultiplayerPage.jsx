@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { NeoButton } from '../components/ui/NeoButton';
-import { NeoInput } from '../components/ui/NeoInput';
-import { NeoCard } from '../components/ui/NeoCard';
+import { CyberButton } from '../components/ui/CyberButton';
+import { CyberInput } from '../components/ui/CyberInput';
+import { CyberCard } from '../components/ui/CyberCard';
+import MusicalNotes from '../components/MusicalNotes';
 import { ArrowLeft, Plus, Users, RefreshCw } from 'lucide-react';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
