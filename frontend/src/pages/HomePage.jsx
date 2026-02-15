@@ -9,102 +9,103 @@ import { Users, User, Trophy, Music } from 'lucide-react';
 const HomePage = () => {
   const navigate = useNavigate();
   
-  const prideColors = ['#FF3B30', '#FF9500', '#FFCC00', '#34C759', '#007AFF', '#AF52DE'];
-  
   return (
-    <div className="min-h-screen bg-cream p-4 md:p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
+      <MusicalNotes />
+      <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="text-center mb-12 mt-8"
         >
           <div className="inline-block mb-6">
-            <div className="rainbow-border">
-              <div className="rainbow-border-content px-8 py-4">
-                <h1 className="font-primary text-5xl md:text-7xl uppercase tracking-tighter leading-[0.9] text-black">
-                  KELLY'S EYE
+            <div className="gradient-border rounded-lg">
+              <div className="gradient-border-content px-8 py-6 rounded-lg">
+                <h1 className="font-primary text-6xl md:text-8xl uppercase tracking-wider font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan">
+                  SINGO
                 </h1>
               </div>
             </div>
           </div>
-          <p className="font-secondary text-lg md:text-xl font-medium max-w-2xl mx-auto text-black">
-            Celebrate diversity and inclusion with our vibrant bingo game. Play solo or join friends for an unforgettable experience!
+          <p className="font-secondary text-lg md:text-xl font-normal max-w-2xl mx-auto text-gray-300 mb-6">
+            The Ultimate Cyberpunk Musical Bingo Experience
           </p>
-          <div className="mt-6">
-            <NeoButton
+          <div className="flex justify-center gap-4">
+            <CyberButton
               variant="ghost"
               onClick={() => navigate('/leaderboard')}
               testId="view-leaderboard-btn"
             >
               <Trophy className="w-5 h-5 inline mr-2" />
-              View Leaderboard
-            </NeoButton>
+              Leaderboard
+            </CyberButton>
           </div>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           <motion.div
             initial={{ x: -20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <NeoCard interactive onClick={() => navigate('/single-player')} testId="single-player-card">
+            <CyberCard interactive onClick={() => navigate('/single-player')} testId="single-player-card" neonColor="pink">
               <div className="text-center space-y-4">
-                <div className="mx-auto w-20 h-20 bg-pride-yellow border-2 border-black shadow-hard-md flex items-center justify-center">
-                  <User className="w-10 h-10 text-black" />
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-pink to-neon-purple rounded-lg shadow-neon-pink flex items-center justify-center">
+                  <User className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="font-primary text-3xl uppercase tracking-tight">Single Player</h2>
-                <p className="font-secondary text-base leading-relaxed">
-                  Play at your own pace with auto-calling numbers. Perfect for practicing or relaxing solo play.
+                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-pink">Single Player</h2>
+                <p className="font-secondary text-base leading-relaxed text-gray-300">
+                  Play at your own pace with auto-calling numbers and pattern challenges.
                 </p>
-                <NeoButton variant="primary" className="w-full" testId="play-single-btn">
+                <CyberButton variant="primary" className="w-full" testId="play-single-btn">
                   Play Solo
-                </NeoButton>
+                </CyberButton>
               </div>
-            </NeoCard>
+            </CyberCard>
+          </motion.div>
+          
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <CyberCard interactive onClick={() => navigate('/bar-mode')} testId="bar-mode-card" neonColor="purple">
+              <div className="text-center space-y-4">
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-purple to-neon-cyan rounded-lg shadow-neon-purple flex items-center justify-center">
+                  <Music className="w-10 h-10 text-white" />
+                </div>
+                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-purple">Bar Mode</h2>
+                <p className="font-secondary text-base leading-relaxed text-gray-300">
+                  Split view mode perfect for bars. Player sees card, admin controls calls.
+                </p>
+                <CyberButton variant="secondary" className="w-full" testId="play-bar-btn">
+                  Bar Mode
+                </CyberButton>
+              </div>
+            </CyberCard>
           </motion.div>
           
           <motion.div
             initial={{ x: 20, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
           >
-            <NeoCard interactive onClick={() => navigate('/multiplayer')} testId="multiplayer-card">
+            <CyberCard interactive onClick={() => navigate('/multiplayer')} testId="multiplayer-card" neonColor="cyan">
               <div className="text-center space-y-4">
-                <div className="mx-auto w-20 h-20 bg-pride-cyan border-2 border-black shadow-hard-md flex items-center justify-center">
-                  <Users className="w-10 h-10 text-black" />
+                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-cyan to-neon-blue rounded-lg shadow-neon-cyan flex items-center justify-center">
+                  <Users className="w-10 h-10 text-white" />
                 </div>
-                <h2 className="font-primary text-3xl uppercase tracking-tight">Multiplayer</h2>
-                <p className="font-secondary text-base leading-relaxed">
+                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-cyan">Multiplayer</h2>
+                <p className="font-secondary text-base leading-relaxed text-gray-300">
                   Join or create rooms and compete with friends. First to BINGO wins!
                 </p>
-                <NeoButton variant="secondary" className="w-full" testId="play-multiplayer-btn">
+                <CyberButton variant="secondary" className="w-full" testId="play-multiplayer-btn">
                   Play Together
-                </NeoButton>
+                </CyberButton>
               </div>
-            </NeoCard>
+            </CyberCard>
           </motion.div>
         </div>
-        
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 text-center"
-        >
-          <div className="flex flex-wrap justify-center gap-2">
-            {prideColors.map((color, idx) => (
-              <motion.div
-                key={idx}
-                className="w-12 h-12 border-2 border-black shadow-hard-sm"
-                style={{ backgroundColor: color }}
-                whileHover={{ scale: 1.1, rotate: 180 }}
-                transition={{ type: 'spring', stiffness: 300 }}
-              />
-            ))}
-          </div>
-        </motion.div>
       </div>
     </div>
   );
