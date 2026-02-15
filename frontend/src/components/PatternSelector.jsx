@@ -14,7 +14,7 @@ const PatternSelector = ({ selectedPattern, onSelectPattern }) => {
   
   return (
     <div className="mb-6">
-      <h3 className="font-primary text-xl uppercase mb-3" data-testid="pattern-selector-title">
+      <h3 className="font-primary text-xl uppercase mb-3 text-neon-cyan" data-testid="pattern-selector-title">
         Win Pattern
       </h3>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -24,10 +24,10 @@ const PatternSelector = ({ selectedPattern, onSelectPattern }) => {
             data-testid={`pattern-${pattern.id}`}
             onClick={() => onSelectPattern(pattern.id)}
             className={`
-              p-4 border-2 border-black font-secondary font-medium text-sm transition-all
+              p-4 border-2 font-secondary font-medium text-sm transition-all rounded-lg
               ${selectedPattern === pattern.id 
-                ? 'bg-pride-yellow shadow-hard-md' 
-                : 'bg-white shadow-hard-sm hover:translate-y-[-2px] hover:shadow-hard-md'
+                ? 'bg-gradient-to-r from-neon-pink to-neon-purple border-neon-pink shadow-neon-pink text-white' 
+                : 'bg-dark-surface border-neon-purple hover:border-neon-cyan hover:shadow-neon-cyan text-white'
               }
             `}
             whileHover={{ scale: 1.05 }}
