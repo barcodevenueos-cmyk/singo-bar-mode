@@ -12,7 +12,6 @@ import MusicalNotes from '../components/MusicalNotes';
 import { ArrowLeft, Play, Pause, Users, Crown, X, Volume2, VolumeX } from 'lucide-react';
 import { playSound } from '../utils/sounds';
 import { speakNumber, initVoice } from '../utils/voice';
-import { speakNumber, initVoice } from '../utils/voice';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -37,6 +36,8 @@ const BarModePage = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
   const [ws, setWs] = useState(null);
+  const [achievedPatterns, setAchievedPatterns] = useState([]);
+  const [latestPattern, setLatestPattern] = useState(null);
   
   useEffect(() => {
     return () => {
@@ -146,6 +147,23 @@ const BarModePage = () => {
           toggle: true
         }
       });
+      
+      // Handle pattern achievements
+      if (response.data.new_patterns && response.data.new_patterns.length > 0) {
+        const newPatterns = response.data.new_patterns;
+        setAchievedPatterns(response.data.achieved_patterns || []);
+        
+        // Show pattern achievement notification
+        newPatterns.forEach(pattern => {
+          setLatestPattern(pattern);
+          if (soundEnabled) playSound('daub');
+          
+          // Clear the notification after 3 seconds
+          setTimeout(() => {
+            setLatestPattern(null);
+          }, 3000);
+        });
+      }
       
       if (response.data.winner) {
         handleWin();
@@ -278,14 +296,49 @@ const BarModePage = () => {
   
   // Player View - Only Bingo Card
   if (role === 'player') {
+    const patternLabels = {
+      four_corners: '4 CORNERS',
+      line: 'LINE',
+      full_house: 'FULL HOUSE'
+    };
+    
     return (
       <div className="min-h-screen bg-dark-bg cyberpunk-bg flex flex-col items-center justify-center p-4 relative">
         <MusicalNotes />
         <div className="relative z-10 w-full max-w-2xl">
+          {/* Pattern Progress Tracker */}
+          <div className="mb-6">
+            <div className="flex justify-center gap-4 flex-wrap">
+              {['four_corners', 'line', 'full_house'].map((pattern) => (
+                <div
+                  key={pattern}
+                  data-testid={`pattern-tracker-${pattern}`}
+                  className={`px-4 py-2 rounded-lg border-2 font-primary text-sm uppercase tracking-wider transition-all ${
+                    achievedPatterns.includes(pattern)
+                      ? 'bg-gradient-to-r from-neon-pink to-neon-purple border-neon-pink text-white shadow-neon-pink animate-pulse'
+                      : 'bg-dark-surface border-neon-purple/50 text-gray-400'
+                  }`}
+                >
+                  {achievedPatterns.includes(pattern) ? '✓ ' : ''}{patternLabels[pattern]}
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Pattern Achievement Notification */}
+          {latestPattern && !gameWon && (
+            <div className="mb-6 text-center animate-bounce">
+              <h2 className="font-primary text-4xl uppercase text-neon-cyan animate-glow-pulse" data-testid="pattern-achievement">
+                {patternLabels[latestPattern]} ACHIEVED!
+              </h2>
+              <p className="text-white font-secondary mt-2">Keep going for Full House!</p>
+            </div>
+          )}
+          
           {gameWon && (
             <div className="mb-8 text-center">
               <h2 className="font-primary text-6xl uppercase text-neon-pink animate-glow-pulse" data-testid="player-win-message">
-                BINGO! YOU WIN!
+                FULL HOUSE! YOU WIN!
               </h2>
             </div>
           )}

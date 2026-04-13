@@ -144,6 +144,7 @@ def generate_bingo_card() -> BingoCard:
     return BingoCard(numbers=transposed, daubed=daubed)
 
 def check_win(card: BingoCard, pattern: str = "any") -> bool:
+    """Legacy function for single pattern check"""
     daubed = card.daubed
     
     if pattern == "any" or pattern == "line":
@@ -174,6 +175,48 @@ def check_win(card: BingoCard, pattern: str = "any") -> bool:
             return True
     
     return False
+
+def check_patterns_progressive(card: BingoCard) -> dict:
+    """
+    Check all patterns for progressive game mode.
+    Returns dict with each pattern's completion status.
+    Game only ends when full_house is achieved.
+    """
+    daubed = card.daubed
+    patterns = {
+        "four_corners": False,
+        "line": False,
+        "full_house": False
+    }
+    
+    # Check Four Corners
+    if daubed[0][0] and daubed[0][4] and daubed[4][0] and daubed[4][4]:
+        patterns["four_corners"] = True
+    
+    # Check Line (any row, column, or diagonal)
+    # Rows
+    for row in daubed:
+        if all(row):
+            patterns["line"] = True
+            break
+    
+    # Columns
+    if not patterns["line"]:
+        for col in range(5):
+            if all(daubed[row][col] for row in range(5)):
+                patterns["line"] = True
+                break
+    
+    # Diagonals
+    if not patterns["line"]:
+        if all(daubed[i][i] for i in range(5)) or all(daubed[i][4-i] for i in range(5)):
+            patterns["line"] = True
+    
+    # Check Full House (entire card)
+    if all(all(row) for row in daubed):
+        patterns["full_house"] = True
+    
+    return patterns
 
 @api_router.post("/game/create")
 async def create_game(mode: str, player_name: str, num_cards: int = 1, pattern: str = "any"):
@@ -245,7 +288,10 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
         raise HTTPException(status_code=404, detail="Game not found")
     
     pattern = game_doc.get('pattern', 'any')
+    mode = game_doc.get('mode', 'single')
+    achieved_patterns = game_doc.get('achieved_patterns', [])
     players = game_doc.get('players', [])
+    
     for player in players:
         if player['player_id'] == player_id:
             for card in player['cards']:
@@ -256,6 +302,74 @@ async def daub_number(game_id: str, player_id: str, card_id: str, row: int, col:
                     else:
                         card['daubed'][row][col] = True
                     
+                    # For Bar Mode, use progressive pattern checking
+                    if mode == 'bar':
+                        patterns = check_patterns_progressive(BingoCard(**card))
+                        new_achievements = []
+                        
+                        # Check for newly achieved patterns
+                        pattern_order = ["four_corners", "line", "full_house"]
+                        for p in pattern_order:
+                            if patterns[p] and p not in achieved_patterns:
+                                new_achievements.append(p)
+                        
+                        # Update achieved patterns
+                        updated_achieved = achieved_patterns + new_achievements
+                        
+                        # Only end game when full_house is achieved
+                        is_game_over = patterns["full_house"]
+                        
+                        if is_game_over:
+                            player['is_winner'] = True
+                            await db.games.update_one(
+                                {"game_id": game_id},
+                                {"$set": {
+                                    "players": players, 
+                                    "winner_id": player_id, 
+                                    "is_active": False,
+                                    "achieved_patterns": updated_achieved
+                                }}
+                            )
+                            await update_leaderboard(player['player_name'], wins=1)
+                            
+                            await manager.broadcast_to_game({
+                                "type": "game_won",
+                                "winner_id": player_id,
+                                "winner_name": player['player_name'],
+                                "pattern": "full_house"
+                            }, game_id)
+                            
+                            return {
+                                "daubed": card['daubed'][row][col], 
+                                "winner": True,
+                                "new_patterns": new_achievements,
+                                "achieved_patterns": updated_achieved
+                            }
+                        
+                        # Not game over, but may have new pattern achievements
+                        await db.games.update_one(
+                            {"game_id": game_id},
+                            {"$set": {"players": players, "achieved_patterns": updated_achieved}}
+                        )
+                        
+                        # Broadcast pattern achievements
+                        if new_achievements:
+                            await manager.broadcast_to_game({
+                                "type": "pattern_achieved",
+                                "player_id": player_id,
+                                "player_name": player['player_name'],
+                                "patterns": new_achievements,
+                                "achieved_patterns": updated_achieved
+                            }, game_id)
+                        
+                        return {
+                            "daubed": card['daubed'][row][col], 
+                            "winner": False,
+                            "new_patterns": new_achievements,
+                            "achieved_patterns": updated_achieved
+                        }
+                    
+                    # For other modes, use legacy check
                     is_winner = check_win(BingoCard(**card), pattern)
                     if is_winner:
                         player['is_winner'] = True
