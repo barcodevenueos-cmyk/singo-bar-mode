@@ -4,19 +4,247 @@
 
 .App {
   min-height: 100vh;
-  background: #0A0A0A;
+  background: #f5f6f8;
 }
 
-.App-header {
+.venue-shell {
   min-height: 100vh;
+  background: #f5f6f8;
+  color: #17212b;
+}
+
+.venue-header {
+  min-height: 72px;
+  padding: 0 clamp(20px, 5vw, 72px);
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  background: #fff;
+  border-bottom: 1px solid #e4e8ec;
+}
+
+.venue-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #18232d;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: .045em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.venue-brand strong { color: #286d61; }
+
+.venue-brand-mark {
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #286d61;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.venue-nav { height: 72px; display: flex; align-items: stretch; }
+
+.venue-nav-current {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #286d61;
+  color: #1d594f;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.workspace-label {
+  margin-left: auto;
+  color: #697681;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.venue-main {
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: clamp(44px, 7vw, 76px) 0 32px;
+}
+
+.venue-intro { margin-bottom: 34px; }
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #60716f;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.venue-intro h1 {
+  margin: 0;
+  color: #17212b;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 680;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+}
+
+.venue-intro-copy {
+  margin: 11px 0 0;
+  color: #65717b;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.experience-card {
+  min-height: 274px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #FFFFFF;
+  align-items: flex-start;
+  border: 1px solid #dfe4e8;
+  border-radius: 10px;
+  background: #fff;
 }
 
-.App-link {
-  color: #FF10F0;
+.experience-card-active {
+  border-color: #b7d1cb;
+  box-shadow: 0 2px 6px rgba(27, 52, 48, .04);
+}
+
+.experience-card-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.experience-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e7eaed;
+  border-radius: 9px;
+  background: #f8f9fa;
+  color: #77828b;
+}
+
+.experience-icon-active {
+  border-color: #d3e6e1;
+  background: #edf6f3;
+  color: #286d61;
+}
+
+.experience-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 20px;
+  padding: 6px 9px;
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.status-active { background: #edf6f3; color: #1e6559; }
+.status-upcoming { background: #f1f3f5; color: #68747e; }
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #338572;
+}
+
+.experience-content { margin: 22px 0 24px; }
+
+.experience-content h2 {
+  margin: 0 0 8px;
+  color: #1c2731;
+  font-size: 19px;
+  font-weight: 650;
+  letter-spacing: -.02em;
+}
+
+.experience-content p {
+  margin: 0;
+  color: #66737e;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.experience-action {
+  min-height: 42px;
+  margin-top: auto;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid #286d61;
+  border-radius: 7px;
+  background: #286d61;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+
+.experience-action:hover { background: #20594f; border-color: #20594f; }
+.experience-action:focus-visible { outline: 3px solid #9ac9bd; outline-offset: 2px; }
+
+.experience-unavailable {
+  width: 100%;
+  min-height: 42px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  color: #7a858e;
+  font-size: 12px;
+}
+
+.venue-footer {
+  margin-top: 40px;
+  padding-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid #e1e5e9;
+  color: #77828b;
+  font-size: 12px;
+}
+
+.venue-footer span:first-child { font-weight: 700; letter-spacing: .06em; }
+
+@media (max-width: 760px) {
+  .venue-header { min-height: 64px; gap: 24px; }
+  .venue-nav { height: 64px; }
+  .experience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .experience-card { min-height: 260px; }
+}
+
+@media (max-width: 520px) {
+  .venue-header { padding: 0 18px; gap: 16px; }
+  .venue-brand { font-size: 13px; }
+  .venue-nav-current { font-size: 12px; }
+  .workspace-label { display: none; }
+  .venue-main { width: calc(100% - 36px); padding-top: 38px; }
+  .experience-grid { grid-template-columns: 1fr; gap: 12px; }
+  .experience-card { min-height: 0; padding: 18px; }
+  .experience-content { margin: 17px 0 18px; }
+  .experience-unavailable { min-height: 30px; }
+  .venue-footer { margin-top: 28px; }
 }

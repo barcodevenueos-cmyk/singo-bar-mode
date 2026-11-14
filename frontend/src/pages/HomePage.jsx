@@ -1,128 +1,100 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { CyberButton } from '../components/ui/CyberButton';
-import { CyberCard } from '../components/ui/CyberCard';
-import MusicalNotes from '../components/MusicalNotes';
-import { Users, User, Trophy, Music } from 'lucide-react';
+import { ArrowRight, LockKeyhole, Music2 } from 'lucide-react';
+
+const experiences = [
+  {
+    id: 'music-bingo',
+    title: 'Music Bingo',
+    description: 'Host a live bingo session with player cards, called numbers and progressive wins.',
+    status: 'Active',
+    icon: Music2,
+    active: true,
+  },
+  {
+    id: 'coming-soon-two',
+    title: 'New experience',
+    description: 'Another entertainment option for your venue is in development.',
+    status: 'Coming soon',
+    icon: LockKeyhole,
+    active: false,
+  },
+  {
+    id: 'coming-soon-three',
+    title: 'New experience',
+    description: 'More ways to bring guests together will be available in a future release.',
+    status: 'Coming soon',
+    icon: LockKeyhole,
+    active: false,
+  },
+];
 
 const HomePage = () => {
   const navigate = useNavigate();
-  
+
   return (
-    <div className="min-h-screen bg-dark-bg cyberpunk-bg p-4 md:p-8 relative">
-      <MusicalNotes />
-      <div className="max-w-6xl mx-auto relative z-10">
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-center mb-12 mt-8"
-        >
-          <div className="inline-block mb-6">
-            <div className="gradient-border rounded-lg">
-              <div className="gradient-border-content px-8 py-6 rounded-lg">
-                <h1 className="font-primary text-6xl md:text-8xl uppercase tracking-wider font-black text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-purple to-neon-cyan">
-                  SINGO
-                </h1>
-              </div>
-            </div>
-          </div>
-          <p className="font-secondary text-lg md:text-xl font-normal max-w-2xl mx-auto text-gray-300 mb-6">
-            The ultimate bingo experience
-          </p>
-          <div className="flex justify-center gap-4">
-            <CyberButton
-              variant="ghost"
-              onClick={() => navigate('/leaderboard')}
-              testId="view-leaderboard-btn"
+    <div className="venue-shell">
+      <header className="venue-header">
+        <a className="venue-brand" href="/" aria-label="Venue OS home">
+          <span className="venue-brand-mark" aria-hidden="true">V</span>
+          <span>VENUE <strong>OS</strong></span>
+        </a>
+        <nav className="venue-nav" aria-label="Main navigation">
+          <span className="venue-nav-current" aria-current="page">Entertainment</span>
+        </nav>
+        <span className="workspace-label">Venue workspace</span>
+      </header>
+
+      <main className="venue-main">
+        <section className="venue-intro" aria-labelledby="page-title">
+          <p className="eyebrow">VENUE MANAGEMENT</p>
+          <h1 id="page-title">Entertainment</h1>
+          <p className="venue-intro-copy">Choose an experience to run at your venue.</p>
+        </section>
+
+        <section className="experience-grid" aria-label="Entertainment experiences">
+          {experiences.map(({ id, title, description, status, icon: Icon, active }) => (
+            <article
+              key={id}
+              className={`experience-card${active ? ' experience-card-active' : ''}`}
+              data-testid={`experience-${id}`}
             >
-              <Trophy className="w-5 h-5 inline mr-2" />
-              Leaderboard
-            </CyberButton>
-          </div>
-        </motion.div>
-        
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg border-2 border-neon-pink">
-              <div className="text-center">
-                <div className="font-primary text-3xl uppercase tracking-wider text-neon-pink mb-2">
-                  Coming Soon
-                </div>
-                <div className="font-secondary text-sm text-gray-300">
-                  Available in next update
-                </div>
+              <div className="experience-card-top">
+                <span className={`experience-icon${active ? ' experience-icon-active' : ''}`} aria-hidden="true">
+                  <Icon size={21} strokeWidth={1.8} />
+                </span>
+                <span className={`experience-status${active ? ' status-active' : ' status-upcoming'}`}>
+                  {active && <span className="status-dot" aria-hidden="true" />}
+                  {status}
+                </span>
               </div>
-            </div>
-            <CyberCard interactive={false} testId="single-player-card" neonColor="pink" className="opacity-50">
-              <div className="text-center space-y-4">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-pink to-neon-purple rounded-lg shadow-neon-pink flex items-center justify-center">
-                  <User className="w-10 h-10 text-white" />
-                </div>
-                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-pink">Single Player</h2>
-                <p className="font-secondary text-base leading-relaxed text-gray-300">
-                  Play at your own pace with auto-calling numbers and pattern challenges.
-                </p>
+              <div className="experience-content">
+                <h2>{active ? title : `${title} ${id === 'coming-soon-two' ? '02' : '03'}`}</h2>
+                <p>{description}</p>
               </div>
-            </CyberCard>
-          </motion.div>
-          
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.3 }}
-          >
-            <CyberCard interactive onClick={() => navigate('/bar-mode')} testId="bar-mode-card" neonColor="purple">
-              <div className="text-center space-y-4">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-purple to-neon-cyan rounded-lg shadow-neon-purple flex items-center justify-center">
-                  <Music className="w-10 h-10 text-white" />
+              {active ? (
+                <button
+                  className="experience-action"
+                  type="button"
+                  onClick={() => navigate('/bar-mode')}
+                  data-testid="open-music-bingo-btn"
+                >
+                  Open Music Bingo <ArrowRight size={17} aria-hidden="true" />
+                </button>
+              ) : (
+                <div className="experience-unavailable" aria-label="Coming soon; not available yet">
+                  Available in a future release
                 </div>
-                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-purple">Bar Mode</h2>
-                <p className="font-secondary text-base leading-relaxed text-gray-300">
-                  Split view mode perfect for bars. Player sees card, admin controls calls.
-                </p>
-                <CyberButton variant="secondary" className="w-full" testId="play-bar-btn">
-                  Bar Mode
-                </CyberButton>
-              </div>
-            </CyberCard>
-          </motion.div>
-          
-          <motion.div
-            initial={{ x: 20, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="relative"
-          >
-            <div className="absolute inset-0 bg-black/70 backdrop-blur-sm z-10 flex items-center justify-center rounded-lg border-2 border-neon-cyan">
-              <div className="text-center">
-                <div className="font-primary text-3xl uppercase tracking-wider text-neon-cyan mb-2">
-                  Coming Soon
-                </div>
-                <div className="font-secondary text-sm text-gray-300">
-                  Available in next update
-                </div>
-              </div>
-            </div>
-            <CyberCard interactive={false} testId="multiplayer-card" neonColor="cyan" className="opacity-50">
-              <div className="text-center space-y-4">
-                <div className="mx-auto w-20 h-20 bg-gradient-to-br from-neon-cyan to-neon-blue rounded-lg shadow-neon-cyan flex items-center justify-center">
-                  <Users className="w-10 h-10 text-white" />
-                </div>
-                <h2 className="font-primary text-2xl uppercase tracking-tight text-neon-cyan">Multiplayer</h2>
-                <p className="font-secondary text-base leading-relaxed text-gray-300">
-                  Join or create rooms and compete with friends. First to BINGO wins!
-                </p>
-              </div>
-            </CyberCard>
-          </motion.div>
-        </div>
-      </div>
+              )}
+            </article>
+          ))}
+        </section>
+
+        <footer className="venue-footer">
+          <span>VENUE OS</span>
+          <span>Entertainment for hospitality</span>
+        </footer>
+      </main>
     </div>
   );
 };
